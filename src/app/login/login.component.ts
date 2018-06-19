@@ -21,13 +21,14 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.authenticationService.login(this.user);
-
-    if (this.authenticationService.isLoggedin()){
-      this.router.navigate(['/']);
+    if (this.authenticationService.login(this.user)) {
+      if (this.authenticationService.isLoggedin()) {
+        this.router.navigate(['/']);
+      }
     }
-    else{
+    else {
       this.wrongPassword = true;
     }
+
   }
 }

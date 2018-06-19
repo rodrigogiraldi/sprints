@@ -13,19 +13,18 @@ export class AuthenticationService {
     this.logged = true;
    }
 
-  login(user: User){
+  login(user: User):boolean{
     if (user.username == 'test' && user.password =='123'){
       this.logged = true;
-      console.log("logged");
+      return true;
     }
     else{
-      console.log("wrong credentials");
+      return false;
     }
   }
 
   logout(){
     this.logged = false;
-    console.log("loggedout");
   }
 
   isLoggedin():boolean{
