@@ -8,15 +8,18 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent" *ngIf="loggedIn">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="#new-sprint">New Sprint</a>
+        <a class="nav-link" routerLink="new-sprint">New Sprint</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#past-sprints">Past Sprints</a>
       </li>
     </ul>
+    <span class="navbar-text text-info">
+      {{username}}
+    </span>&nbsp;
     <ul class="navbar-nav navbar-right">
       <li class="nav-item">
-        <button type="button" class="btn btn-info" (click)="logout()" >Logout</button>
+        <button type="button" class="btn btn-info" (click)="logout()">Logout</button>
       </li>
     </ul>
   </div>
@@ -25,7 +28,9 @@
     </ul>
     <ul class="navbar-nav navbar-right">
       <li class="nav-item">
-          <a routerLink="/login"><button type="button" class="btn btn-primary">Login</button></a>
+        <a routerLink="/login">
+          <button type="button" class="btn btn-primary">Login</button>
+        </a>
       </li>
     </ul>
   </div>

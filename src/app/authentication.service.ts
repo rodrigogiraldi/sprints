@@ -8,14 +8,16 @@ import { User } from './user';
 export class AuthenticationService {
 
   private logged:boolean;
+  private user: User;
 
   constructor() {
-    this.logged = true;
+    // this.logged = false;
    }
 
   login(user: User):boolean{
-    if (user.username == 'test' && user.password =='123'){
+    if (user.username == 'testuser@email.com' && user.password =='123'){
       this.logged = true;
+      this.user = user;
       return true;
     }
     else{
@@ -29,5 +31,9 @@ export class AuthenticationService {
 
   isLoggedin():boolean{
     return this.logged;
+  }
+
+  getUsername():string{
+    return this.user.username;
   }
 }
