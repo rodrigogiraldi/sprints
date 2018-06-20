@@ -8,13 +8,15 @@ import { LoginComponent } from './login/login.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { NewSprintComponent } from './new-sprint/new-sprint.component';
+import { OngoingSprintComponent } from './ongoing-sprint/ongoing-sprint.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     WelcomeComponent,
-    NewSprintComponent
+    NewSprintComponent,
+    OngoingSprintComponent
   ],
   imports: [
     BrowserModule,

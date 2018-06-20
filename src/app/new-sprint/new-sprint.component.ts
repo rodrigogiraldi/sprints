@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Observable, of } from 'rxjs';
 
@@ -17,7 +18,7 @@ export class NewSprintComponent implements OnInit {
   selectedTemplate: SprintTemplate;
   sprintDescription: string;
 
-  constructor(private sprintTemplateService: SprintTemplateService, private pastSprintService: PastSprintService) { }
+  constructor(private sprintTemplateService: SprintTemplateService, private pastSprintService: PastSprintService,  private router: Router) { }
 
   ngOnInit() {
     this.sprintTemplateService.getSprints()
@@ -31,6 +32,7 @@ export class NewSprintComponent implements OnInit {
 
   create() {
     this.pastSprintService.create(this.selectedTemplate, this.sprintDescription);
+    this.router.navigate(['/ongoing-sprint']);
   }
 
   compareSprintTemplate(st1: SprintTemplate, st2: SprintTemplate) {
