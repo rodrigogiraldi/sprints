@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
+import { Observable, of } from 'rxjs';
+
 import { SprintTemplate } from '../sprint-template';
+import { SprintTemplateService } from '../sprint-template.service';
 
 @Component({
   selector: 'app-new-sprint',
@@ -11,17 +14,11 @@ export class NewSprintComponent implements OnInit {
 
   sprintTemplates: SprintTemplate[] = [];
 
-  constructor() { }
+  constructor(private sprintTemplateService: SprintTemplateService) { }
 
   ngOnInit() {
-    this.sprintTemplates = [
-      {name: 'Instant', duration: 5, status: ""},
-      {name: 'Very Short', duration: 300, status: ""},
-      {name: 'Short', duration: 600, status: ""},
-      {name: 'Pomodoro', duration: 1500, status: ""},
-      {name: 'Long', duration: 2700, status: ""},
-      {name: 'Very Long', duration: 3600, status: ""}
-    ]
+    this.sprintTemplateService.getSprints()
+      .subscribe(res => this.sprintTemplates = res.data);
   }
 
 }
