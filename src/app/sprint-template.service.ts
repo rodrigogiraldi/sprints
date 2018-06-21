@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
 
@@ -17,6 +17,8 @@ export class SprintTemplateService {
   constructor(private httpClient: HttpClient) { }
 
   getSprints(): Observable<ResponseAPI> {
-    return this.httpClient.get<ResponseAPI>(this.sprintTemplateUrl);
+    return this.httpClient.get<ResponseAPI>(this.sprintTemplateUrl, {
+      headers: new HttpHeaders().set('Authorization',`Bearer ${localStorage.getItem('access_token')}`)
+    });
   }
 }

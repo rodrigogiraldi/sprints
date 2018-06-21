@@ -9,12 +9,12 @@ import * as auth0 from 'auth0-js';
 export class AuthService {
 
   auth0 = new auth0.WebAuth({
-    clientID: AUTH_CONFIG.clientID,
-    domain: AUTH_CONFIG.domain,
+    clientID: 'QWgVl28tvgr2rKGdCa3KVa3XZ7MWMzSR',
+    domain: 'sprints.auth0.com',
     responseType: 'token id_token',
-    audience: `https://${AUTH_CONFIG.domain}/userinfo`,
-    redirectUri: AUTH_CONFIG.callbackURL,
-    scope: 'openid'
+    audience: 'https://sprints.auth0.com/api/v2/',
+    redirectUri: 'http://localhost:4200/callback',
+    scope: 'openid profile'
   });
 
   constructor(public router: Router) {}
@@ -26,18 +26,18 @@ export class AuthService {
   public handleAuthentication(): void {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
+        window.location.hash = '';
         this.setSession(authResult);
-        this.router.navigate(['/home']);
+        this.router.navigate(['/']);
       } else if (err) {
-        this.router.navigate(['/home']);
+        this.router.navigate(['/']);
         console.log(err);
-        alert(`Error: ${err.error}. Check the console for further details.`);
       }
     });
   }
 
   private setSession(authResult): void {
-    // Set the time that the access token will expire at
+    // Set the time that the Access Token will expire at
     const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
@@ -55,15 +55,9 @@ export class AuthService {
 
   public isAuthenticated(): boolean {
     // Check whether the current time is past the
-    // access token's expiry time
+    // Access Token's expiry time
     const expiresAt = JSON.parse(localStorage.getItem('expires_at') || '{}');
     return new Date().getTime() < expiresAt;
-  }
-
-  public protectPage(){
-      if (!this.isAuthenticated()){
-        this.router.navigate(['/']);
-      }
   }
 
   public getUser(){
