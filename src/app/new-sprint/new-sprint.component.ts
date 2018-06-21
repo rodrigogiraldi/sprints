@@ -6,7 +6,6 @@ import { Observable, of } from 'rxjs';
 import { SprintTemplate } from '../sprint-template';
 import { SprintTemplateService } from '../sprint-template.service';
 import { PastSprintService } from '../past-sprint.service';
-import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-new-sprint',
@@ -19,8 +18,7 @@ export class NewSprintComponent implements OnInit {
   selectedTemplate: SprintTemplate;
   sprintDescription: string;
 
-  constructor(private sprintTemplateService: SprintTemplateService, private pastSprintService: PastSprintService,  private router: Router, public auth: AuthService) {
-    auth.protectPage();
+  constructor(private sprintTemplateService: SprintTemplateService, private pastSprintService: PastSprintService, private router: Router) {
   }
 
   ngOnInit() {

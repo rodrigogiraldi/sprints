@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PastSprintService } from '../past-sprint.service';
 import { PastSprint } from '../past-sprint';
-import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-ongoing-sprint',
@@ -12,8 +11,7 @@ export class OngoingSprintComponent implements OnInit {
 
   ongoingString: string;
 
-  constructor(private pastSprintService: PastSprintService, public auth: AuthService) {
-    auth.protectPage();
+  constructor(private pastSprintService: PastSprintService) {
   }
 
   ngOnInit() {
