@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 
 import { SprintTemplate } from './sprint-template';
+import { ResponseAPI } from './response-api';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class SprintTemplateService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getSprints():Observable<any>{
-    return this.httpClient.get<any>(this.sprintTemplateUrl);
+  getSprints(): Observable<ResponseAPI> {
+    return this.httpClient.get<ResponseAPI>(this.sprintTemplateUrl);
   }
 }

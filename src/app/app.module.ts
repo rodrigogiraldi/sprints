@@ -4,19 +4,20 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { NewSprintComponent } from './new-sprint/new-sprint.component';
 import { OngoingSprintComponent } from './ongoing-sprint/ongoing-sprint.component';
+import { AuthService } from './auth/auth.service';
+import { CallbackComponent } from './callback/callback.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
     WelcomeComponent,
     NewSprintComponent,
-    OngoingSprintComponent
+    OngoingSprintComponent,
+    CallbackComponent
   ],
   imports: [
     BrowserModule,
@@ -24,7 +25,7 @@ import { OngoingSprintComponent } from './ongoing-sprint/ongoing-sprint.componen
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
