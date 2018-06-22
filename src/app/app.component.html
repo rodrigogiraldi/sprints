@@ -11,11 +11,11 @@
         <a class="nav-link" routerLink="new-sprint">New Sprint</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#past-sprints">Past Sprints</a>
+        <a class="nav-link" routerLink="past-sprints">Past Sprints</a>
       </li>
     </ul>
     <span class="navbar-text text-info">
-      {{auth.getUser()}}
+      {{auth.getUserame()}}
     </span>&nbsp;
     <ul class="navbar-nav navbar-right">
       <li class="nav-item">
@@ -28,7 +28,7 @@
     </ul>
     <ul class="navbar-nav navbar-right">
       <li class="nav-item">
-          <button (click)="auth.login()" type="button" class="btn btn-primary">Login</button>
+        <button (click)="auth.login()" type="button" class="btn btn-primary">Login</button>
       </li>
     </ul>
   </div>

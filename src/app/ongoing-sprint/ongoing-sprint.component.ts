@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { PastSprintService } from '../past-sprint.service';
 import { PastSprint } from '../past-sprint';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-ongoing-sprint',
@@ -17,14 +18,14 @@ export class OngoingSprintComponent implements OnInit {
 
   sprintStatus: string;
 
-  constructor(private pastSprintService: PastSprintService, private router: Router) {
+  constructor(private pastSprintService: PastSprintService, private router: Router, public auth: AuthService) {
   }
 
   ngOnInit() {
-    if (this.pastSprintService.ongoing){
+    if (this.pastSprintService.ongoing) {
       this.startSprint();
     }
-    else{
+    else {
       this.router.navigate(['/']);
     }
   }
@@ -68,7 +69,13 @@ export class OngoingSprintComponent implements OnInit {
   finishSprint(status: string) {
     this.ongoing.status = status;
     this.ongoing.finishedAt = new Date();
+    this.ongoing.user = this.auth.getUserId();
     this.sprintStatus = status;
+
+    this.pastSprintService.save(this.ongoing)
+      .subscribe(res => {
+        //TODO add to past sprints service array
+      })
   }
 
   getFormattedDuration() {
@@ -95,5 +102,9 @@ export class OngoingSprintComponent implements OnInit {
     let strTime = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
 
     return strDate + ' ' + strTime;
+  }
+
+  goToPastSprints() {
+    this.router.navigate(['/past-sprints']);
   }
 }

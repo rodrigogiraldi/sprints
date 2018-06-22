@@ -17,6 +17,7 @@ export class NewSprintComponent implements OnInit {
   sprintTemplates: SprintTemplate[] = [];
   selectedTemplate: SprintTemplate;
   sprintDescription: string;
+  notify: boolean;
 
   constructor(private sprintTemplateService: SprintTemplateService, private pastSprintService: PastSprintService, private router: Router) {
   }
@@ -32,7 +33,7 @@ export class NewSprintComponent implements OnInit {
   }
 
   create() {
-    this.pastSprintService.create(this.selectedTemplate, this.sprintDescription);
+    this.pastSprintService.create(this.selectedTemplate, this.sprintDescription, this.notify);
     this.router.navigate(['/ongoing-sprint']);
   }
 

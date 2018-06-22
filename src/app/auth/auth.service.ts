@@ -17,7 +17,7 @@ export class AuthService {
     scope: 'openid profile'
   });
 
-  constructor(public router: Router) {}
+  constructor(public router: Router) { }
 
   public login(): void {
     this.auth0.authorize();
@@ -43,7 +43,6 @@ export class AuthService {
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
     localStorage.setItem('current_user', JSON.stringify(authResult.idTokenPayload));
-    console.log(authResult);
   }
 
   public logout(): void {
@@ -63,9 +62,13 @@ export class AuthService {
     return new Date().getTime() < expiresAt;
   }
 
-  public getUser(){
+  public getUserame() {
     let currentUser = JSON.parse(localStorage.current_user);
     return currentUser.name;
   }
 
+  public getUserId() {
+    let currentUser = JSON.parse(localStorage.current_user);
+    return currentUser.sub;
+  }
 }
