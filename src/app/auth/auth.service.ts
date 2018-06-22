@@ -42,7 +42,7 @@ export class AuthService {
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
-    localStorage.setItem('username', authResult.idTokenPayload.name);
+    localStorage.setItem('current_user', JSON.stringify(authResult.idTokenPayload));
     console.log(authResult);
   }
 
@@ -51,7 +51,7 @@ export class AuthService {
     localStorage.removeItem('access_token');
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
-    localStorage.removeItem('username');
+    localStorage.removeItem('current_user');
     // Go back to the home route
     this.router.navigate(['/']);
   }
@@ -64,7 +64,8 @@ export class AuthService {
   }
 
   public getUser(){
-    return localStorage.username;
+    let currentUser = JSON.parse(localStorage.current_user);
+    return currentUser.name;
   }
 
 }
