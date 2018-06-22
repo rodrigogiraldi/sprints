@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { PastSprintService } from '../past-sprint.service';
 import { PastSprint } from '../past-sprint';
 
@@ -15,11 +17,16 @@ export class OngoingSprintComponent implements OnInit {
 
   sprintStatus: string;
 
-  constructor(private pastSprintService: PastSprintService) {
+  constructor(private pastSprintService: PastSprintService, private router: Router) {
   }
 
   ngOnInit() {
-    this.startSprint();
+    if (this.pastSprintService.ongoing){
+      this.startSprint();
+    }
+    else{
+      this.router.navigate(['/']);
+    }
   }
 
   progressFunction() {
