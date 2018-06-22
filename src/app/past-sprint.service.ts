@@ -15,8 +15,10 @@ export class PastSprintService {
   create(sprintTemplate: SprintTemplate, description: string) {
     let pastSprint = new PastSprint();
     pastSprint.name = sprintTemplate.name;
+    pastSprint.duration = sprintTemplate.duration;
     pastSprint.status = sprintTemplate.status;
     pastSprint.description = description;
+    pastSprint.progress = 0;
 
     this.ongoing = pastSprint;
   }

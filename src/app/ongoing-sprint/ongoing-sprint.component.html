@@ -1,1 +1,63 @@
-<pre>{{ongoingString}}</pre>
+<div class="container">
+    <div class="mt-3">
+        <div class="row justify-content-center py-3">
+            <div class="col-lg-6">
+                <div *ngIf="sprintStatus=='ongoing'||sprintStatus=='paused'">
+                    <h4 class="text-center">Ongoing Sprint</h4>
+
+                    <img *ngIf="sprintStatus=='ongoing'" class="rounded mx-auto d-block img-spinner" title="Ongoing" src="assets/loading.svg"
+                        alt="loading">
+                    <img *ngIf="sprintStatus=='paused'" class="rounded mx-auto d-block img-spinner" title="Paused" src="assets/media-pause.svg"
+                        alt="loading">
+
+                    <h5 class="text-center">{{ongoing.progress}}%</h5>
+
+                    <p class="text-center" *ngIf="sprintStatus=='ongoing'">
+                        <span class="btn btn-outline-warning" (click)="pauseProgress()">Pause Sprint</span>
+                    </p>
+
+                    <p class="text-center" *ngIf="sprintStatus=='paused'">
+                        <button type="button" class="btn btn-outline-success" (click)="startProgress()">Continue</button>&nbsp;
+                        <button type="button" class="btn btn-outline-danger" (click)="cancelSprint()">Cancel</button>
+                    </p>
+                </div>
+
+                <div *ngIf="sprintStatus=='finished'||sprintStatus=='canceled'">
+                    <h4 class="text-center">Sprint Statistics</h4>
+                    <h5 class="mt-3">
+                        Name
+                        <small class="text-muted">{{ongoing.name}}</small>
+                    </h5>
+                    <h5 class="mt-3">
+                        Duration
+                        <small class="text-muted">{{getFormattedDuration()}}</small>
+                    </h5>
+                    <h5 class="mt-3">
+                        Status
+                        <small class="text-muted">{{ongoing.status}}</small>
+                    </h5>
+                    <h5 class="mt-3">
+                        Progress
+                        <small class="text-muted">{{ongoing.progress}}%</small>
+                    </h5>
+                    <h5 class="mt-3">
+                        Description
+                        <small class="text-muted">{{ongoing.description}}</small>
+                    </h5>
+                    <h5 class="mt-3">
+                        Started at
+                        <small class="text-muted">{{getFormattedDate('createdAt')}}</small>
+                    </h5>
+                    <h5 class="mt-3">
+                        Finished at
+                        <small class="text-muted">{{getFormattedDate('finishedAt')}}</small>
+                    </h5>
+                    <p class="text-center mt-3">
+                            <button type="button" class="btn btn-outline-success" (click)="startProgress()">Go to Past Sprints</button>&nbsp;
+                        </p>                    
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -22,6 +22,7 @@ const DB = {
 
 mongoose.Promise = global.Promise;
 
+app.use('/assets', express.static('src/assets'))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors());
