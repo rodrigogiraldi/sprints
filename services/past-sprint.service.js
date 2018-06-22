@@ -19,3 +19,14 @@ exports.createSprint = async function (pastSprint) {
         throw Error('Error creating Past Sprint');
     }
 }
+
+exports.getSprints = async function (userId) {
+
+    try {
+        const sprints = await pastSprintDAO.find({ user: userId });
+        return sprints;
+    }
+    catch (err) {
+        throw Error('Error getting Past Sprint');
+    }
+}

@@ -6,17 +6,18 @@ import { PastSprint } from './past-sprint';
 import { SprintTemplate } from './sprint-template';
 import { Observable } from 'rxjs';
 import { ResponseAPI } from './response-api';
+import { AuthService } from './auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PastSprintService {
 
-  private sprintTemplateUrl = 'http://localhost:3000/api/pastSprints';
+  private pastSprintUrl = 'http://localhost:3000/api/pastSprints';
 
   ongoing: PastSprint;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private auth: AuthService) { }
 
   create(sprintTemplate: SprintTemplate, description: string, notify: boolean) {
     let pastSprint = new PastSprint();
@@ -32,11 +33,23 @@ export class PastSprintService {
 
   save(pastSprint: PastSprint): Observable<ResponseAPI> {
     return this.httpClient.post<ResponseAPI>(
-      this.sprintTemplateUrl,
+      this.pastSprintUrl,
       pastSprint,
       {
         headers: new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('access_token')}`)
       }
     );
+  }
+
+  getSprints(): Observable<ResponseAPI> {
+    let userId = this.auth.getUserId();
+    let getSprintsUrl = `${this.pastSprintUrl}/${userId}`;
+
+    return this.httpClient.get<ResponseAPI>(
+      getSprintsUrl,
+      {
+        headers: new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('access_token')}`)
+      }
+    )
   }
 }

@@ -10,6 +10,7 @@ import { NewSprintComponent } from './new-sprint/new-sprint.component';
 import { OngoingSprintComponent } from './ongoing-sprint/ongoing-sprint.component';
 import { AuthService } from './auth/auth.service';
 import { CallbackComponent } from './callback/callback.component';
+import { PastSprintComponent } from './past-sprint/past-sprint.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { CallbackComponent } from './callback/callback.component';
     WelcomeComponent,
     NewSprintComponent,
     OngoingSprintComponent,
-    CallbackComponent
+    CallbackComponent,
+    PastSprintComponent
   ],
   imports: [
     BrowserModule,

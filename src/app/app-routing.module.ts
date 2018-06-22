@@ -5,12 +5,14 @@ import { NewSprintComponent } from './new-sprint/new-sprint.component';
 import { OngoingSprintComponent } from './ongoing-sprint/ongoing-sprint.component';
 import { CallbackComponent } from './callback/callback.component';
 import { AuthGuard } from './auth/auth.guard';
+import { PastSprintComponent } from './past-sprint/past-sprint.component';
 
 
 const routes: Routes = [
   { path: '', component: WelcomeComponent },
   { path: 'new-sprint', component: NewSprintComponent, canActivate: [AuthGuard] },
   { path: 'ongoing-sprint', component: OngoingSprintComponent, canActivate: [AuthGuard] },
+  { path: 'past-sprint', component: PastSprintComponent, canActivate: [AuthGuard] },
   { path: 'callback', component: CallbackComponent },
   { path: '**', redirectTo: '' }
 ]

@@ -105,6 +105,6 @@ export class OngoingSprintComponent implements OnInit {
   }
 
   goToPastSprints() {
-    this.router.navigate(['/past-sprints']);
+    this.router.navigate(['/past-sprint']);
   }
 }
