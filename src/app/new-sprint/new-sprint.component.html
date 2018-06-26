@@ -10,8 +10,7 @@
             <label for="sprintTemplates">Length</label>
             <select [compareWith]="compareSprintTemplate" [(ngModel)]="selectedTemplate" name="selectedTemplate" class="custom-select d-block w-100"
               id="sprintTemplates" required [disabled]="sprintTemplates.length===0">
-              <option *ngFor="let sprintTemplate of sprintTemplates" [ngValue]="sprintTemplate">{{sprintTemplate.name}} - {{sprintTemplate.duration > 60 ? sprintTemplate.duration/60 + ' minutes' : sprintTemplate.duration
-                + ' seconds'}}</option>
+              <option *ngFor="let sprintTemplate of sprintTemplates" [ngValue]="sprintTemplate">{{sprintTemplate.name}} - {{sprintTemplate.duration | formatSeconds}}</option>
               <!-- <option *ngIf="sprintTemplates.length===0">Sprints not found</option> -->
             </select>
           </div>

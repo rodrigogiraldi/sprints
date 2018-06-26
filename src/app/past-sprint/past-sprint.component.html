@@ -7,22 +7,39 @@
             <th scope="col">Name</th>
             <th scope="col">Length</th>
             <th scope="col">Status</th>
-            <th scope="col">Start</th>
-            <th scope="col">Finish</th>
+            <th scope="col">Started</th>
+            <th scope="col">Finished</th>
             <th scope="col">Description</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let pastSprint of pastSprints">
             <td>{{pastSprint.name}}</td>
-            <td>{{pastSprint.duration}}</td>
-            <td>{{pastSprint.status}}</td>
-            <td>{{pastSprint.startedAt}}</td>
-            <td>{{pastSprint.finishedAt}}</td>
-            <td>{{pastSprint.description}}</td>
+            <td>{{pastSprint.duration | formatSeconds}}</td>
+            <td>{{pastSprint.status | titlecase}}</td>
+            <td>{{pastSprint.startedAt | date: 'dd/MM/yyyy hh:mm:ss a'}}</td>
+            <td>{{pastSprint.finishedAt | date: 'dd/MM/yyyy hh:mm:ss a'}}</td>
+            <td>{{pastSprint.description | titlecase}}</td>
           </tr>
         </tbody>
       </table>
+      <div class="col-12">
+        <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
+          <span class="mt-1 mr-1">Items per page: </span>
+          <div class="btn-group btn-group-sm mr-2" role="group" aria-label="First group">
+            <button type="button" class="btn btn-outline-secondary">5</button>
+            <button type="button" class="btn btn-outline-secondary">10</button>
+            <button type="button" class="btn btn-outline-secondary">25</button>
+          </div>
+          <div class="btn-group btn-group-sm mr-2" role="group" aria-label="Second group">
+            <button type="button" class="btn btn-outline-secondary disabled">Previous</button>
+            <button type="button" class="btn btn-outline-secondary">1</button>
+            <button type="button" class="btn btn-outline-secondary">2</button>
+            <button type="button" class="btn btn-outline-secondary">3</button>
+            <button type="button" class="btn btn-outline-secondary disabled">Next</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

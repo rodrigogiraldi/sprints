@@ -11,6 +11,7 @@ import { OngoingSprintComponent } from './ongoing-sprint/ongoing-sprint.componen
 import { AuthService } from './auth/auth.service';
 import { CallbackComponent } from './callback/callback.component';
 import { PastSprintComponent } from './past-sprint/past-sprint.component';
+import { FormatSecondsPipe } from './format-seconds.pipe';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { PastSprintComponent } from './past-sprint/past-sprint.component';
     NewSprintComponent,
     OngoingSprintComponent,
     CallbackComponent,
-    PastSprintComponent
+    PastSprintComponent,
+    FormatSecondsPipe
   ],
   imports: [
     BrowserModule,
