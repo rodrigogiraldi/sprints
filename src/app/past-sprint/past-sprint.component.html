@@ -27,11 +27,11 @@
         <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
           <span class="mt-1 mr-1">Items per page: </span>
           <div class="btn-group btn-group-sm mr-2" role="group" aria-label="First group">
-            <button type="button" class="btn btn-outline-secondary">5</button>
-            <button type="button" class="btn btn-outline-secondary">10</button>
-            <button type="button" class="btn btn-outline-secondary">25</button>
+            <button *ngFor="let item of itemsPerPageElements" [ngClass]="item.css" (click)="changeItemsPerPage(item.value)" type="button"
+              class="btn btn-outline-secondary">{{item.value}}</button>
           </div>
-          <div class="btn-group btn-group-sm mr-2" role="group" aria-label="Second group">
+
+          <div *ngIf="needsPagination" class="btn-group btn-group-sm mr-2" role="group" aria-label="Second group">
             <button type="button" class="btn btn-outline-secondary disabled">Previous</button>
             <button type="button" class="btn btn-outline-secondary">1</button>
             <button type="button" class="btn btn-outline-secondary">2</button>
