@@ -7,6 +7,8 @@ const bodyParser = require('body-parser');
 
 const api = require('./routes/api.route');
 
+const sprintTemplateService = require('./services/sprint-template.service');
+
 const app = express();
 
 const SERVER = {
@@ -17,28 +19,28 @@ const SERVER = {
 const DB = {
     ADDRESS: 'localhost',
     PORT: 27017,
-    NAME: 'sprints'
+    NAME: 'sprints_rodrigo'
 }
 
 mongoose.Promise = global.Promise;
 
 app.use('/assets', express.static('src/assets'))
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 const authCheck = jwt({
     secret: jwks.expressJwtSecret({
-          cache: true,
-          rateLimit: true,
-          jwksRequestsPerMinute: 5,
-          jwksUri: "https://sprints.auth0.com/.well-known/jwks.json"
-      }),
-      // This is the identifier we set when we created the API
-      audience: 'https://sprints.auth0.com/api/v2/',
-      issuer: "https://sprints.auth0.com/", // e.g., you.auth0.com
-      algorithms: ['RS256']
-  });
+        cache: true,
+        rateLimit: true,
+        jwksRequestsPerMinute: 5,
+        jwksUri: "https://sprints.auth0.com/.well-known/jwks.json"
+    }),
+    // This is the identifier we set when we created the API
+    audience: 'https://sprints.auth0.com/api/v2/',
+    issuer: "https://sprints.auth0.com/", // e.g., you.auth0.com
+    algorithms: ['RS256']
+});
 
 mongoose.connect(`mongodb://${DB.ADDRESS}/${DB.NAME}`)
     .then(() => {
@@ -49,6 +51,26 @@ mongoose.connect(`mongodb://${DB.ADDRESS}/${DB.NAME}`)
     })
 
 app.use('/api', authCheck, api);
+
+app.get('/setup', (req, res, next) => {
+
+    (async function () {
+        try {
+            const sprintTemplates = await sprintTemplateService.createSprints();
+
+            res.json({
+                status: 200,
+                message: 'data created'
+            })
+        }
+        catch (err) {
+            res.json({
+                status: 404
+            })
+            console.log(err);
+        }
+    }());
+});
 
 app.listen(SERVER.PORT, () => {
     console.log(`Running on ${SERVER.PORT}`);
