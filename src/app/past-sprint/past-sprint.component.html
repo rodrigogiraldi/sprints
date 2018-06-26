@@ -31,13 +31,8 @@
               class="btn btn-outline-secondary">{{item.value}}</button>
           </div>
 
-          <div *ngIf="needsPagination" class="btn-group btn-group-sm mr-2" role="group" aria-label="Second group">
-            <button type="button" class="btn btn-outline-secondary disabled">Previous</button>
-            <button type="button" class="btn btn-outline-secondary">1</button>
-            <button type="button" class="btn btn-outline-secondary">2</button>
-            <button type="button" class="btn btn-outline-secondary">3</button>
-            <button type="button" class="btn btn-outline-secondary disabled">Next</button>
-          </div>
+          <div *ngIf="needsPagination" class="btn-group btn-group-sm mr-2" role="group" aria-label="Third group">
+              <button *ngFor="let paginationElement of paginationElements" type="button" [ngClass]="paginationElement.css" class="btn btn-outline-secondary">{{paginationElement.text}}</button>          
         </div>
       </div>
     </div>

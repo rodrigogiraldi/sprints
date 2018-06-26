@@ -16,8 +16,8 @@ export class PastSprintComponent implements OnInit {
     { value: 10, css: { active: true } },
     { value: 25, css: { active: false } }
   ];
-  currentPage: number = 0;
   needsPagination: boolean = true;
+  paginationElements = [];
 
   constructor(private pastSprintService: PastSprintService) { }
 
@@ -30,6 +30,7 @@ export class PastSprintComponent implements OnInit {
       .subscribe(res => {
         this.pastSprints = res.data;
         this.pastSprintscurrentPage = this.pastSprints;
+        this.generatePaginationElements();
       })
   }
 
@@ -47,17 +48,42 @@ export class PastSprintComponent implements OnInit {
     this.checkIfNeedsPagination();
   }
 
-  getActive(): any {
+  getActiveItemsPerPage(): any {
     return this.itemsPerPageElements.find(el => { return el.css.active == true });
   }
 
   checkIfNeedsPagination() {
-    let activeElement = this.getActive();
+    this.generatePaginationElements();
+    let activeElement = this.getActiveItemsPerPage();
     if (this.pastSprintscurrentPage.length > activeElement.value) {
       this.needsPagination = true;
     }
     else {
       this.needsPagination = false;
     }
+  }
+
+  generatePaginationElements() {
+    let numberOfPages = Math.ceil(this.pastSprintscurrentPage.length / this.getActiveItemsPerPage().value);
+
+    let elements = [];
+    elements.push({
+      text: 'Previous',
+      css: { disabled: true }
+    });
+
+    for (let i = 0; i < numberOfPages; i++) {
+      elements.push({
+        text: (i + 1).toString(),
+        css: { disabled: false }
+      });
+    }
+
+    elements.push({
+      text: 'Next',
+      css: { disabled: false }
+    });
+
+    this.paginationElements = elements;
   }
 }
