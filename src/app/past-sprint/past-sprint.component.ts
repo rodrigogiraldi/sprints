@@ -30,7 +30,7 @@ export class PastSprintComponent implements OnInit {
       .subscribe(res => {
         this.pastSprints = res.data;
         this.pastSprintscurrentPage = this.pastSprints;
-        this.generatePaginationElements();
+        this.checkIfNeedsPagination();
       })
   }
 
@@ -55,8 +55,9 @@ export class PastSprintComponent implements OnInit {
   checkIfNeedsPagination() {
     this.generatePaginationElements();
     let activeElement = this.getActiveItemsPerPage();
-    if (this.pastSprintscurrentPage.length > activeElement.value) {
+    if (this.pastSprints.length > activeElement.value) {
       this.needsPagination = true;
+      this.changePage(this.paginationElements[0]);
     }
     else {
       this.needsPagination = false;
@@ -64,13 +65,9 @@ export class PastSprintComponent implements OnInit {
   }
 
   generatePaginationElements() {
-    let numberOfPages = Math.ceil(this.pastSprintscurrentPage.length / this.getActiveItemsPerPage().value);
+    let numberOfPages = Math.ceil(this.pastSprints.length / this.getActiveItemsPerPage().value);
 
     let elements = [];
-    elements.push({
-      text: 'Previous',
-      css: { disabled: true }
-    });
 
     for (let i = 0; i < numberOfPages; i++) {
       elements.push({
@@ -79,11 +76,21 @@ export class PastSprintComponent implements OnInit {
       });
     }
 
-    elements.push({
-      text: 'Next',
-      css: { disabled: false }
-    });
-
     this.paginationElements = elements;
+  }
+
+  changePage(pageText) {
+
+    for (let i = 0; i < this.paginationElements.length; i++) {
+      this.paginationElements[i].css.active = false;
+    }
+
+    pageText.css.active = true;
+
+    let numberOfitemsPerPage = this.getActiveItemsPerPage().value;
+    let begin = (parseInt(pageText.text) - 1) * numberOfitemsPerPage;
+    let end = begin + numberOfitemsPerPage;
+
+    this.pastSprintscurrentPage = this.pastSprints.slice(begin, end);
   }
 }

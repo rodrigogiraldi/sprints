@@ -13,7 +13,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let pastSprint of pastSprints">
+          <tr *ngFor="let pastSprint of pastSprintscurrentPage">
             <td>{{pastSprint.name}}</td>
             <td>{{pastSprint.duration | formatSeconds}}</td>
             <td>{{pastSprint.status | titlecase}}</td>
@@ -31,10 +31,14 @@
               class="btn btn-outline-secondary">{{item.value}}</button>
           </div>
 
-          <div *ngIf="needsPagination" class="btn-group btn-group-sm mr-2" role="group" aria-label="Third group">
-              <button *ngFor="let paginationElement of paginationElements" type="button" [ngClass]="paginationElement.css" class="btn btn-outline-secondary">{{paginationElement.text}}</button>          
+          <div *ngIf="needsPagination">
+            <span class="mt-1 mr-1">Page: </span>
+            <div class="btn-group btn-group-sm mr-2" role="group" aria-label="Third group">
+              <button *ngFor="let paginationElement of paginationElements" type="button" [ngClass]="paginationElement.css" (click)="changePage(paginationElement)"
+                class="btn btn-outline-secondary">{{paginationElement.text}}</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
