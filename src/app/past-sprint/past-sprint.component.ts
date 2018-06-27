@@ -10,6 +10,7 @@ import { PastSprintService } from '../past-sprint.service';
 export class PastSprintComponent implements OnInit {
 
   pastSprints: PastSprint[];
+  pastSprintsFiltered: PastSprint[];
   pastSprintscurrentPage: PastSprint[] = [];
   itemsPerPageElements: any[] = [
     { value: 5, css: { active: false } },
@@ -18,6 +19,7 @@ export class PastSprintComponent implements OnInit {
   ];
   needsPagination: boolean = true;
   paginationElements = [];
+  filterSprintsInput: string;
 
   constructor(private pastSprintService: PastSprintService) { }
 
@@ -29,7 +31,9 @@ export class PastSprintComponent implements OnInit {
     this.pastSprintService.getSprints()
       .subscribe(res => {
         this.pastSprints = res.data;
-        this.pastSprintscurrentPage = this.pastSprints;
+        this.pastSprintService.setSearchablePropertyToPastSprints(this.pastSprints);
+        this.pastSprintsFiltered = this.pastSprints;
+        this.pastSprintscurrentPage = this.pastSprintsFiltered;
         this.checkIfNeedsPagination();
       })
   }
@@ -55,17 +59,18 @@ export class PastSprintComponent implements OnInit {
   checkIfNeedsPagination() {
     this.generatePaginationElements();
     let activeElement = this.getActiveItemsPerPage();
-    if (this.pastSprints.length > activeElement.value) {
+    if (this.pastSprintsFiltered.length > activeElement.value) {
       this.needsPagination = true;
       this.changePage(this.paginationElements[0]);
     }
     else {
       this.needsPagination = false;
+      this.pastSprintscurrentPage = this.pastSprintsFiltered;
     }
   }
 
   generatePaginationElements() {
-    let numberOfPages = Math.ceil(this.pastSprints.length / this.getActiveItemsPerPage().value);
+    let numberOfPages = Math.ceil(this.pastSprintsFiltered.length / this.getActiveItemsPerPage().value);
 
     let elements = [];
 
@@ -91,6 +96,21 @@ export class PastSprintComponent implements OnInit {
     let begin = (parseInt(pageText.text) - 1) * numberOfitemsPerPage;
     let end = begin + numberOfitemsPerPage;
 
-    this.pastSprintscurrentPage = this.pastSprints.slice(begin, end);
+    this.pastSprintscurrentPage = this.pastSprintsFiltered.slice(begin, end);
+  }
+
+  filterSprints() {
+
+    this.pastSprintsFiltered = [];
+
+    let termToSearch = this.filterSprintsInput.toLowerCase()
+
+    for (let i = 0; i < this.pastSprints.length; i++) {
+      if (this.pastSprints[i].searchableString.search(termToSearch) != -1) {
+        this.pastSprintsFiltered.push(this.pastSprints[i]);
+      }
+    }
+
+    this.checkIfNeedsPagination();
   }
 }

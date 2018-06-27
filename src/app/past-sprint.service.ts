@@ -52,4 +52,16 @@ export class PastSprintService {
       }
     )
   }
+
+  createSearchableProperty(pastSprint: PastSprint): string {
+    return (pastSprint.name + pastSprint.status + pastSprint.description).toLowerCase();
+  }
+
+  setSearchablePropertyToPastSprints(pastSprints: PastSprint[]) {
+    for (let i = 0; i < pastSprints.length; i++) {
+      pastSprints[i].searchableString = this.createSearchableProperty(pastSprints[i]);
+    }
+
+    return pastSprints;
+  }
 }

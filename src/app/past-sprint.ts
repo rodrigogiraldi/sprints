@@ -9,4 +9,5 @@ export class PastSprint {
     createdAt: Date;
     startedAt: Date;
     finishedAt: Date;
+    searchableString?: string;
 }
