@@ -1,3 +1,8 @@
+# Note
+README file is not written yet, please check setup.pdf temporarily.
+---
+---
+
 # Sprints
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.7.
