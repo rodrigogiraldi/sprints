@@ -18,6 +18,7 @@ export class NewSprintComponent implements OnInit {
   selectedTemplate: SprintTemplate;
   sprintDescription: string;
   notify: boolean;
+  showValidationAlert: boolean;
 
   constructor(private sprintTemplateService: SprintTemplateService, private pastSprintService: PastSprintService, private router: Router) {
   }
@@ -33,8 +34,13 @@ export class NewSprintComponent implements OnInit {
   }
 
   create() {
-    this.pastSprintService.create(this.selectedTemplate, this.sprintDescription, this.notify);
-    this.router.navigate(['/ongoing-sprint']);
+    if (this.sprintDescription == undefined || this.sprintDescription.trim().length == 0) {
+      this.showValidationAlert = true;
+    }
+    else {
+      this.pastSprintService.create(this.selectedTemplate, this.sprintDescription, this.notify);
+      this.router.navigate(['/ongoing-sprint']);
+    }
   }
 
   compareSprintTemplate(st1: SprintTemplate, st2: SprintTemplate) {
