@@ -17,6 +17,11 @@ export class PastSprintService {
 
   ongoing: PastSprint;
 
+  lastOrderedField = {
+    field: "",
+    asc: true
+  }
+
   constructor(private httpClient: HttpClient, private auth: AuthService) { }
 
   create(sprintTemplate: SprintTemplate, description: string, notify: boolean) {
@@ -63,5 +68,27 @@ export class PastSprintService {
     }
 
     return pastSprints;
+  }
+
+  sortPastSprints(pastSprints: PastSprint[], fieldToOrderBy: string) {
+
+    if (this.lastOrderedField.field == fieldToOrderBy && this.lastOrderedField.asc) {
+      pastSprints.sort((ps1, ps2) => {
+        return ps1[fieldToOrderBy] > ps2[fieldToOrderBy] ? -1 : 1;
+      });
+    }
+    else {
+      pastSprints.sort((ps1, ps2) => {
+        return ps1[fieldToOrderBy] > ps2[fieldToOrderBy] ? 1 : -1;
+      });
+    }
+
+    if (this.lastOrderedField.field == fieldToOrderBy) {
+      this.lastOrderedField.asc = !this.lastOrderedField.asc
+    }
+    else {
+      this.lastOrderedField.field = fieldToOrderBy;
+      this.lastOrderedField.asc = true;
+    }
   }
 }

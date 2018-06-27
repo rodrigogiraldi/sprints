@@ -113,4 +113,9 @@ export class PastSprintComponent implements OnInit {
 
     this.checkIfNeedsPagination();
   }
+
+  sortPastSprints(fieldToOrderBy: string) {
+    this.pastSprintService.sortPastSprints(this.pastSprintsFiltered, fieldToOrderBy);
+    this.checkIfNeedsPagination();
+  }
 }
