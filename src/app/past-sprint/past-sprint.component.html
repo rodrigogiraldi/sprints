@@ -37,14 +37,18 @@
       </table>
       <div class="col-12">
         <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
-          <span class="mt-1 mr-1">Items per page: </span>
+          <small class="mt-1">
+            <span class="mr-1">Items per page: </span>
+          </small>
           <div class="btn-group btn-group-sm mr-2" role="group" aria-label="First group">
             <button *ngFor="let item of itemsPerPageElements" [ngClass]="item.css" (click)="changeItemsPerPage(item.value)" type="button"
               class="btn btn-outline-secondary">{{item.value}}</button>
           </div>
 
           <div *ngIf="needsPagination">
-            <span class="mt-1 mr-1">Page: </span>
+            <small class="mt-1">
+              <span class="mr-1">Page: </span>
+            </small>
             <div class="btn-group btn-group-sm mr-2" role="group" aria-label="Third group">
               <button *ngFor="let paginationElement of paginationElements" type="button" [ngClass]="paginationElement.css" (click)="changePage(paginationElement)"
                 class="btn btn-outline-secondary">{{paginationElement.text}}</button>
@@ -53,4 +57,19 @@
         </div>
       </div>
     </div>
+    <div *ngIf="!showDeletePastSprintsConfirmation" class="row">
+      <div class="col-12">
+        <p class="text-center">
+          <span class="btn btn-sm btn-outline-danger" (click)="deletePastSprintsConfirmation()">Delete Past Sprints</span>
+        </p>
+      </div>
+    </div>
+    <div *ngIf="showDeletePastSprintsConfirmation" class="row justify-content-center">
+      <div class="alert alert-secondary" role="alert">
+        Confirm deletion?
+        <span class="btn btn-sm btn-danger text-right" (click)="deletePastSprints()">Yes</span>
+        <span class="btn btn-sm btn-success ml-2 text-right" (click)="deletePastSprintsConfirmation()">No</span>
+      </div>
+    </div>
   </div>
+</div>

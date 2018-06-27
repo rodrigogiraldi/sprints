@@ -20,6 +20,7 @@ export class PastSprintComponent implements OnInit {
   needsPagination: boolean = true;
   paginationElements = [];
   filterSprintsInput: string;
+  showDeletePastSprintsConfirmation: boolean;
 
   constructor(private pastSprintService: PastSprintService) { }
 
@@ -117,5 +118,19 @@ export class PastSprintComponent implements OnInit {
   sortPastSprints(fieldToOrderBy: string) {
     this.pastSprintService.sortPastSprints(this.pastSprintsFiltered, fieldToOrderBy);
     this.checkIfNeedsPagination();
+  }
+
+  deletePastSprintsConfirmation() {
+    this.showDeletePastSprintsConfirmation = !this.showDeletePastSprintsConfirmation;
+  }
+
+  deletePastSprints() {
+    this.pastSprintService.deleteSprints()
+      .subscribe(res => {
+        this.pastSprints = [];
+        this.pastSprintsFiltered = [];
+        this.pastSprintscurrentPage = [];
+        this.deletePastSprintsConfirmation();
+      })
   }
 }

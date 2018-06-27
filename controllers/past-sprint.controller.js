@@ -43,3 +43,24 @@ exports.getSprints = async function(req, res, next){
         console.log(err);
     }
 }
+
+exports.deleteSprints = async function(req, res, next){
+    
+    console.log("pastSprintController.deleteSprints");
+
+    let userId = req.params.userId;
+
+    try{
+        await pastSprintService.deleteSprints(userId);
+
+        res.json({
+            status: 204
+        })
+    }
+    catch(err){
+        res.json({
+            status: 404
+        })
+        console.log(err);
+    }
+}

@@ -30,3 +30,13 @@ exports.getSprints = async function (userId) {
         throw Error('Error getting Past Sprint');
     }
 }
+
+exports.deleteSprints = async function (userId) {
+
+    try {
+        await pastSprintDAO.deleteMany({ user: userId });
+    }
+    catch (err) {
+        throw Error('Error deleting Past Sprint');
+    }
+}

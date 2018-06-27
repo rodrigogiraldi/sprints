@@ -46,6 +46,18 @@ export class PastSprintService {
     );
   }
 
+  deleteSprints(){
+    let userId = this.auth.getUserId();
+    let getSprintsUrl = `${this.pastSprintUrl}/${userId}`;
+
+    return this.httpClient.delete<ResponseAPI>(
+      getSprintsUrl,
+      {
+        headers: new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('access_token')}`)
+      }
+    )    
+  }
+
   getSprints(): Observable<ResponseAPI> {
     let userId = this.auth.getUserId();
     let getSprintsUrl = `${this.pastSprintUrl}/${userId}`;
