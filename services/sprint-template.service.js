@@ -14,15 +14,24 @@ exports.getSprints = async function () {
 exports.createSprints = async function () {
 
     try {
-        const sprintTemplates = await sprintTemplateDAO.insertMany([
-            { name: "Instant",  duration: 5, status: "default"},
-            { name: "Very Short",  duration: 300, status: "default"},
-            { name: "Short",  duration: 600, status: "default"},
-            { name: "Pomodoro",  duration: 1500, status: "default"},
-            { name: "Long",  duration: 2700, status: "default"},
-            { name: "Very Long",  duration: 3600, status: "default"},
-        ])
-        return sprintTemplates;
+        const numberOfSprintTemplates = await sprintTemplateDAO.count();
+
+        if (numberOfSprintTemplates == 0) {
+            const sprintTemplates = await sprintTemplateDAO.insertMany([
+                { name: "Instant", duration: 5, status: "default" },
+                { name: "Very Short", duration: 300, status: "default" },
+                { name: "Short", duration: 600, status: "default" },
+                { name: "Pomodoro", duration: 1500, status: "default" },
+                { name: "Long", duration: 2700, status: "default" },
+                { name: "Very Long", duration: 3600, status: "default" },
+            ]);
+
+            return "data created";
+        }
+        else {
+            return "data found";
+        }
+
     }
     catch (err) {
         throw Error('Error creating Sprint Templates');

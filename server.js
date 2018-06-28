@@ -4,8 +4,11 @@ const jwt = require('express-jwt');
 const jwks = require('jwks-rsa');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const swaggerUi = require('express-swaggerize-ui');
 
 const api = require('./routes/api.route');
+const setup = require('./config/setup');
+const swaggerConfig = require('./config/swagger');
 
 const sprintTemplateService = require('./services/sprint-template.service');
 
@@ -50,27 +53,13 @@ mongoose.connect(`mongodb://${DB.ADDRESS}/${DB.NAME}`)
         console.error(err);
     })
 
+// app.use('/api', api);
 app.use('/api', authCheck, api);
 
-app.get('/setup', (req, res, next) => {
+app.use('/api-docs', swaggerUi());
+app.use('/api-docs.json', swaggerConfig);
 
-    (async function () {
-        try {
-            const sprintTemplates = await sprintTemplateService.createSprints();
-
-            res.json({
-                status: 200,
-                message: 'data created'
-            })
-        }
-        catch (err) {
-            res.json({
-                status: 404
-            })
-            console.log(err);
-        }
-    }());
-});
+app.use('/setup', setup);
 
 app.listen(SERVER.PORT, () => {
     console.log(`Running on ${SERVER.PORT}`);
